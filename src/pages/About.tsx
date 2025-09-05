@@ -1,99 +1,129 @@
-// src/pages/About.js
 import React from "react";
+import { Link } from "react-router-dom";
 import "../styles/About.css";
 
 const About = () => {
+  const stats = [
+    { num: "1,270+", label: "Teams on waitlist" },
+    { num: "42", label: "Design partners" },
+    { num: "28 %", label: "Less tool-time*" },
+  ];
   return (
     <div className="about-page">
-      {/* Hero Section */}
+      {/* HERO */}
       <section className="hero">
-        <div className="hero-content">
-          <h1>About Workdora</h1>
+        <div className="container">
+          <h1>Built for agencies who bill by the hour.</h1>
           <p>
-            One intelligent platform that eliminates tool overload, bringing
-            AI-native productivity directly into your workspace.
+            Workdora replaces the 7+ apps you juggle to scope, track and invoice
+            work—so your team wins back a day every week.
           </p>
+          <Link to="/#waitlist" className="cta-button">
+            Get Early Access – It’s Free
+          </Link>
+          <span className="hero-note">
+            *Average time saved by beta agencies vs. ClickUp + Harvest + Slack
+            stack.
+          </span>
         </div>
       </section>
 
-      {/* Story Section */}
+      {/* METRIC BAR */}
+      <section className="metric-bar">
+        <div className="container">
+          {stats.map((s) => (
+            <div key={s.label} className="metric">
+              <div className="num">{s.num}</div>
+              <div className="label">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* STORY */}
       <section className="story">
-        <h2>Our Story</h2>
-        <div className="story-text">
-          <p>
-            Workdora was born out of frustration with endless apps, constant
-            context switching, and wasted energy. Teams were spending more time
-            juggling tools than doing actual work.
-          </p>
-          <p>
-            In 2025, we reimagined productivity from the ground up: What if AI
-            could live natively in your workspace, unifying tasks,
-            communication, and knowledge into one flow?
-          </p>
-          <p>
-            That’s the Workdora vision—fewer apps, fewer distractions, more
-            focus. Our mission is to empower teams to achieve more with less
-            effort by making productivity simple, intelligent, and human.
-          </p>
-        </div>
-      </section>
-
-      {/* Why Workdora */}
-      <section className="why">
-        <h2>Why Workdora?</h2>
-        <div className="why-grid">
-          <div className="why-card">
-            <div className="icon">🤖</div>
-            <h3>AI-Native Workspace</h3>
+        <div className="container">
+          <h2>Our story</h2>
+          <div className="content">
             <p>
-              AI is built into the core of Workdora—not an add-on. Automate
-              routine tasks, generate insights instantly, and stay ahead with
-              smart suggestions.
+              I ran a 15-person agency. We spent 28 % of the week copy-pasting
+              between Slack, ClickUp and Harvest—then still missed billable
+              hours. Existing “all-in-one” tools were slow and bloated.
             </p>
-          </div>
-          <div className="why-card">
-            <div className="icon">📂</div>
-            <h3>One Platform</h3>
             <p>
-              No more switching between countless apps. Tasks, docs,
-              communication, and goals live together in one seamless experience.
+              So we started Workdora: a Slack-first task layer that turns
+              messages into scoped, billable deliverables in{" "}
+              <strong>under 5 seconds</strong>. No migration headaches, no new
+              UI to learn.
             </p>
-          </div>
-          <div className="why-card">
-            <div className="icon">⚡</div>
-            <h3>More Focus</h3>
             <p>
-              Less time lost to notifications and fragmented workflows. More
-              time for real, meaningful work.
+              Today 42 agencies run their entire delivery workflow inside
+              Workdora—and get paid faster because scope, time and invoice live
+              in the same thread.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Values */}
+      {/* VALUES */}
       <section className="values">
-        <h2>Our Values</h2>
-        <div className="values-grid">
-          <div className="value-card">
-            <h3>Simplicity</h3>
-            <p>
-              We strip away the noise so teams can focus on what matters most.
-            </p>
+        <div className="container">
+          <h2>What we believe</h2>
+          <div className="values-grid">
+            <div className="value">
+              <h3>Simplicity sells.</h3>
+              <p>If onboarding takes longer than a coffee break, we failed.</p>
+            </div>
+            <div className="value">
+              <h3>Time = money.</h3>
+              <p>Every extra click steals billable minutes from our users.</p>
+            </div>
+            <div className="value">
+              <h3>AI is a co-worker.</h3>
+              <p>
+                Not a gimmick—just invisible automation that moves work forward.
+              </p>
+            </div>
           </div>
-          <div className="value-card">
-            <h3>Empowerment</h3>
-            <p>
-              Our tools amplify human creativity and decision-making, not
-              replace them.
-            </p>
+        </div>
+      </section>
+
+      {/* TEAM */}
+      <section className="team">
+        <div className="container">
+          <h2>Who's building it</h2>
+          <div className="team-grid">
+            <div className="member">
+              <h4>Abass Olaiya</h4>
+              <span>CEO & Founder</span>
+              <p>
+                Ex-agency owner (exit 2023). 8 years shipping client work on
+                time.
+              </p>
+            </div>
+            <div className="member">
+              <h4>Popoola Covenat</h4>
+              <span>CTO</span>
+              <p>
+                Ex-PhiBITech Software lead. 12 yrs Node / real-time systems.
+              </p>
+            </div>
+            <div className="member">
+              <h4>Olakuleyin Stephen</h4>
+              <span>Design</span>
+              <p>Former Atlassian Jira design lead. 5 yrs building B2B UX.</p>
+            </div>
           </div>
-          <div className="value-card">
-            <h3>Innovation</h3>
-            <p>
-              We constantly explore new ways AI can make work smarter and more
-              human.
-            </p>
-          </div>
+        </div>
+      </section>
+
+      {/* CTA STRIP */}
+      <section className="cta-strip">
+        <div className="container">
+          <h2>Ready to win back a day every week?</h2>
+          <Link to="/#waitlist" className="cta-button large">
+            Get Early Access – It’s Free
+          </Link>
         </div>
       </section>
     </div>
