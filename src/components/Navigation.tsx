@@ -36,7 +36,7 @@ const Navigation: React.FC = () => {
         {/* CTA */}
         <div className="nav-cta">
           <HashLink smooth to="/#waitlist" className="waitlist-btn">
-            Get Early Access – It’s Free
+            Join Waitlist
           </HashLink>
         </div>
       </div>
