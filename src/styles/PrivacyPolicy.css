@@ -1,0 +1,52 @@
+.privacy-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  line-height: 1.7;
+  color: #2d2d2d; /* Workdora Charcoal */
+}
+
+.privacy-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.privacy-hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #833ab4, #fd1d1d, #fcaf45);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.privacy-hero p {
+  font-size: 0.9rem;
+  color: #5c6778; /* Workdora Slate */
+}
+
+.privacy-content h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #733cab; /* Workdora Purple */
+}
+
+.privacy-content p,
+.privacy-content li {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.privacy-content ul {
+  list-style: disc inside;
+  padding-left: 1rem;
+}
+
+.privacy-content a {
+  color: #ff7b52; /* Workdora Coral */
+  text-decoration: none;
+}
+
+.privacy-content a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,142 @@
+.about-page {
+  font-family: "Inter", sans-serif;
+  color: #2d2d2d;
+  line-height: 1.6;
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(90deg, #833ab4, #fd1d1d, #fcaf45);
+  color: white;
+  padding: 6rem 2rem;
+  text-align: center;
+  animation: fadeIn 1.5s ease-in-out;
+}
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+.hero p {
+  font-size: 1.25rem;
+  max-width: 700px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+/* Story */
+.story {
+  background: #fff;
+  padding: 5rem 2rem;
+  text-align: center;
+}
+.story h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #733cab;
+}
+.story-text {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+  font-size: 1.1rem;
+  color: #555;
+  animation: slideUp 1.2s ease;
+}
+
+/* Why Workdora */
+.why {
+  background: #f8f9fa;
+  padding: 5rem 2rem;
+  text-align: center;
+}
+.why h2 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: #733cab;
+}
+.why-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.why-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.why-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+.why-card .icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.why-card h3 {
+  margin-bottom: 1rem;
+  color: #2d2d2d;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.why-card p {
+  color: #555;
+  font-size: 1rem;
+}
+
+/* Values */
+.values {
+  background: #fff;
+  padding: 5rem 2rem;
+  text-align: center;
+}
+.values h2 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: #733cab;
+}
+.values-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.value-card {
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 1rem;
+  transition: background 0.3s ease;
+}
+.value-card:hover {
+  background: #eee;
+}
+.value-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #733cab;
+}
+.value-card p {
+  color: #555;
+  font-size: 1rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

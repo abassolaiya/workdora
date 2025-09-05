@@ -1,0 +1,52 @@
+.terms-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  line-height: 1.7;
+  color: #2d2d2d; /* Workdora Charcoal */
+}
+
+.terms-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.terms-hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #833ab4, #fd1d1d, #fcaf45);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.terms-hero p {
+  font-size: 0.9rem;
+  color: #5c6778; /* Workdora Slate */
+}
+
+.terms-content h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #733cab; /* Workdora Purple */
+}
+
+.terms-content p,
+.terms-content li {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.terms-content ul {
+  list-style: disc inside;
+  padding-left: 1rem;
+}
+
+.terms-content a {
+  color: #ff7b52; /* Workdora Coral */
+  text-decoration: none;
+}
+
+.terms-content a:hover {
+  text-decoration: underline;
+}
