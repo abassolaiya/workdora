@@ -17,12 +17,12 @@ const Navigation: React.FC = () => {
 
         {/* Links */}
         <div className="nav-links">
-          <Link
+          {/* <Link
             to="/"
             className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
           >
             Home
-          </Link>
+          </Link> */}
           <Link
             to="/about"
             className={`nav-link ${
