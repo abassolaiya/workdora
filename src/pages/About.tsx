@@ -101,7 +101,7 @@ const About = () => {
               </p>
             </div>
             <div className="member">
-              <h4>Popoola Covenat</h4>
+              <h4>Popoola Covenant</h4>
               <span>CTO</span>
               <p>
                 Ex-PhiBITech Software lead. 12 yrs Node / real-time systems.
