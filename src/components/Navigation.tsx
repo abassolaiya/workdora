@@ -1,8 +1,8 @@
 // src/components/Navigation.tsx
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { HashLink } from "react-router-hash-link";
 import "../styles/Navigation.css";
+import { HashLink } from "react-router-hash-link";
 
 const Navigation: React.FC = () => {
   const location = useLocation();
