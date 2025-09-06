@@ -1,4 +1,4 @@
-import { useState, useEffect, type SetStateAction } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import "../styles/Home.css";
 
