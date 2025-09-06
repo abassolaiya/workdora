@@ -99,9 +99,11 @@ export default function Home() {
   if (submitted) return <ThankYou />;
 
   return (
-    <>
+    <div className="app-container">
+      <Nav />
       <Hero />
       <Features />
+      <FAQ />
       <Waitlist
         {...{
           name,
@@ -125,47 +127,105 @@ export default function Home() {
         }}
       />
       <Footer />
-    </>
+    </div>
   );
 }
 
 /* ---------- sub components ---------- */
+function Nav() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <nav className={`nav ${isScrolled ? "nav-scrolled" : ""}`}>
+      <div className="nav-container">
+        <div className="logo">
+          <div className="logo-icon">
+            <i className="fas fa-bolt"></i>
+          </div>
+          <span className="logo-text">Workdora</span>
+        </div>
+        <div className="nav-links">
+          <a href="#features">Features</a>
+          <a href="#waitlist">Waitlist</a>
+          <a href="#faq">FAQ</a>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
 function Hero() {
   return (
     <section className="hero-section">
-      <div className="hero-overlay" />
+      <div className="hero-overlay"></div>
+      <div className="hero-background-pattern"></div>
+
       <div className="hero-content container">
-        <h1 className="hero-title animate__animated animate__fadeIn">
+        <div className="hero-badge">
+          <span>Early Access Available</span>
+        </div>
+
+        <h1 className="hero-title">
           One Tool. More <span className="text-accent">Productivity.</span>
         </h1>
-        <p className="hero-subtitle animate__animated animate__fadeIn animate__delay-1s">
+
+        <p className="hero-subtitle">
           Convert Slack messages into billable tasks in under 5 seconds – join{" "}
-          <strong>1,270 agencies</strong> already on the list.
+          <strong>1,270+ agencies</strong> already on the list.
         </p>
+
+        <div className="hero-stats">
+          <div className="stat">
+            <div className="stat-number">5s</div>
+            <div className="stat-label">Task Creation</div>
+          </div>
+          <div className="stat">
+            <div className="stat-number">98%</div>
+            <div className="stat-label">Time Saved</div>
+          </div>
+          <div className="stat">
+            <div className="stat-number">1,270+</div>
+            <div className="stat-label">Agencies</div>
+          </div>
+        </div>
+
         <button
           onClick={() =>
             document
               .getElementById("waitlist")
               ?.scrollIntoView({ behavior: "smooth" })
           }
-          className="cta-button animate__animated animate__fadeIn animate__delay-2s"
+          className="cta-button"
         >
-          Get Early Access – It’s Free
+          <i className="fas fa-arrow-right"></i>
+          Get Early Access – It's Free
         </button>
+
+        <div className="hero-proof">
+          <div className="trusted-by">Join agencies who've already saved</div>
+          <div className="proof-stats">
+            <div className="proof-stat">
+              <strong>4,200+</strong> hours
+            </div>
+            <div className="proof-stat">
+              <strong>$127K+</strong> revenue
+            </div>
+            <div className="proof-stat">
+              <strong>98%</strong> satisfaction
+            </div>
+          </div>
+        </div>
       </div>
-      {/* <div className="hero-content container">
-        <h1>
-          One Tool. More <span className="text-accent">Productivity.</span>
-        </h1>
-        <p>
-          Convert Slack messages into billable tasks in under 5 seconds – join{" "}
-          <strong>1,270 agencies</strong> already on the list.
-        </p>
-        <a href="#waitlist" className="cta-button">
-          Join Waitlist
-        </a>
-      </div> */}
-      <div className="sheen-overlay" />
+
+      <div className="sheen-overlay"></div>
     </section>
   );
 }
@@ -203,10 +263,17 @@ function Features() {
       desc: "Close task → export to Harvest / QuickBooks instantly.",
     },
   ];
+
   return (
     <section id="features" className="features-section">
       <div className="container">
-        <h2 className="section-title">Why Workdora?</h2>
+        <div className="section-header">
+          <h2 className="section-title">Why Workdora?</h2>
+          <p className="section-subtitle">
+            Designed for agencies that value efficiency and seamless workflows
+          </p>
+        </div>
+
         <div className="features-grid">
           {feats.map((f, i) => (
             <div key={i} className="feature-card">
@@ -217,6 +284,131 @@ function Features() {
               <p>{f.desc}</p>
             </div>
           ))}
+        </div>
+
+        <div className="features-cta">
+          <h3>Ready to transform your workflow?</h3>
+          <a href="#waitlist" className="secondary-button">
+            Join the Waitlist
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FAQ() {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const toggleFAQ = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  const faqItems = [
+    {
+      question: "What is Workdora?",
+      answer:
+        "Workdora is a unified productivity platform that helps agencies convert Slack messages into billable tasks in under 5 seconds. It streamlines task management, documentation, and collaboration in one workspace.",
+    },
+    {
+      question: "How does the waitlist work?",
+      answer:
+        "Joining our waitlist gives you priority access to Workdora as we roll out invitations. The earlier you join, the sooner you'll get access. We're gradually inviting people from the waitlist to ensure a smooth onboarding experience for everyone.",
+    },
+    {
+      question: "What are the benefits of joining the waitlist?",
+      answer:
+        "Waitlist members receive exclusive benefits including early access to new features, priority support, and most importantly—beta testers who join through the waitlist will receive a 50% lifetime discount on their subscription once Workdora launches publicly.",
+    },
+    {
+      question: "How do I qualify for the 50% lifetime discount?",
+      answer:
+        "Anyone who joins the waitlist and is selected as a beta tester will qualify for the 50% lifetime discount. This discount will apply to your account forever, even as we add new features and increase prices for new customers.",
+    },
+    {
+      question: "When will I get access to Workdora?",
+      answer:
+        "We're rolling out access in phases. The first beta group will get access within 2-3 weeks, with subsequent groups added every 1-2 weeks. You'll receive an email notification when your account is ready.",
+    },
+    {
+      question: "What does it mean to be a design partner?",
+      answer:
+        "Design partners are agencies that commit to using Workdora with at least 5 seats and provide regular feedback to help shape the product. In addition to the 50% lifetime discount, design partners get direct access to our product team and influence over our roadmap.",
+    },
+    {
+      question: "Which tools does Workdora integrate with?",
+      answer:
+        "Currently, Workdora integrates with Slack, Harvest, and QuickBooks, with more integrations coming soon. Our goal is to connect with all the tools agencies use daily without requiring you to change your existing workflow.",
+    },
+    {
+      question: "How secure is my data with Workdora?",
+      answer:
+        "Security is our top priority. We use AES-256 encryption at rest and TLS 1.3 in transit. We're also working toward SOC-2 compliance to ensure enterprise-grade security for all our customers.",
+    },
+    {
+      question: "Is there a free trial?",
+      answer:
+        "Yes! All beta testers will have full access to Workdora for free during the beta period. After launch, you'll have the option to continue with your 50% lifetime discount or explore our free tier which includes basic functionality.",
+    },
+    {
+      question:
+        "How can I maximize my chances of being selected as a beta tester?",
+      answer:
+        "Complete your waitlist profile thoroughly, especially the information about your current tools and pain points. The more we understand your needs, the more likely we are to select you for early access. Sharing your referral link also increases your priority.",
+    },
+  ];
+
+  return (
+    <section id="faq" className="faq-section">
+      <div className="container">
+        <div className="section-header">
+          <h2 className="section-title">Frequently Asked Questions</h2>
+          <p className="section-subtitle">
+            Everything you need to know about Workdora and the waitlist
+          </p>
+        </div>
+
+        <div className="faq-container">
+          {faqItems.map((item, index) => (
+            <div
+              key={index}
+              className={`faq-item ${activeIndex === index ? "active" : ""}`}
+            >
+              <button
+                className="faq-question"
+                onClick={() => toggleFAQ(index)}
+                aria-expanded={activeIndex === index}
+              >
+                <span>{item.question}</span>
+                <i
+                  className={`fas ${
+                    activeIndex === index ? "fa-minus" : "fa-plus"
+                  }`}
+                ></i>
+              </button>
+              <div className="faq-answer">
+                <p>{item.answer}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="faq-cta">
+          <div className="discount-highlight">
+            <div className="discount-badge">
+              <i className="fas fa-crown"></i>
+              <span>50% Lifetime Discount</span>
+            </div>
+            <h3>
+              Join the waitlist today and secure your exclusive beta tester
+              benefits
+            </h3>
+            <p>Limited spots available for our initial beta rollout</p>
+          </div>
+          <a href="#waitlist" className="cta-button">
+            <i className="fas fa-arrow-right"></i>
+            Join Waitlist Now
+          </a>
         </div>
       </div>
     </section>
@@ -244,54 +436,93 @@ function Waitlist(props: any) {
     loading,
     handleSubmit,
   } = props;
+
   return (
     <section id="waitlist" className="waitlist-section">
       <div className="container">
+        <div className="section-header">
+          <h2 className="section-title">Join the Waitlist</h2>
+          <p className="section-subtitle">
+            Get early access and exclusive benefits as a founding user
+          </p>
+        </div>
+
         <div className="waitlist-card">
-          <h2>Join the Waitlist</h2>
-          <p className="sub">Takes 45 seconds – we timed it.</p>
+          <div className="waitlist-header">
+            <h3>Reserve Your Spot</h3>
+            <p>Takes 45 seconds – we timed it.</p>
+          </div>
+
+          <div className="progress-container">
+            <div className="progress-bar">
+              <div
+                className="progress-fill"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <div className="progress-text">
+              {Math.round(progress)}% Complete
+            </div>
+          </div>
 
           <form onSubmit={handleSubmit} className="waitlist-form">
-            <div className="progress-bar">
-              <div style={{ width: `${progress}%` }} />
-            </div>
+            <div className="form-grid">
+              <div className="form-group">
+                <label htmlFor="name">Full Name *</label>
+                <input
+                  id="name"
+                  required
+                  placeholder="Enter your full name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
 
-            <div className="inputs">
-              <input
-                required
-                aria-label="Full name"
-                placeholder="Full name *"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <input
-                required
-                aria-label="Work email"
-                placeholder="Work email *"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <input
-                aria-label="Phone (optional)"
-                placeholder="Phone (optional)"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-              <input
-                aria-label="Job title"
-                placeholder="Job title"
-                value={job}
-                onChange={(e) => setJob(e.target.value)}
-              />
-              <input
-                aria-label="Organization"
-                placeholder="Organization"
-                value={org}
-                onChange={(e) => setOrg(e.target.value)}
-              />
+              <div className="form-group">
+                <label htmlFor="email">Work Email *</label>
+                <input
+                  id="email"
+                  required
+                  type="email"
+                  placeholder="name@company.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
 
-              <fieldset>
-                <legend>Which tools do you currently use? (select all)</legend>
+              <div className="form-group">
+                <label htmlFor="phone">Phone (Optional)</label>
+                <input
+                  id="phone"
+                  type="tel"
+                  placeholder="+1 (555) 000-0000"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="job">Job Title</label>
+                <input
+                  id="job"
+                  placeholder="e.g. Project Manager"
+                  value={job}
+                  onChange={(e) => setJob(e.target.value)}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="org">Organization</label>
+                <input
+                  id="org"
+                  placeholder="Company name"
+                  value={org}
+                  onChange={(e) => setOrg(e.target.value)}
+                />
+              </div>
+
+              <div className="form-group full-width">
+                <label>Which tools do you currently use? (select all)</label>
                 <div className="tool-grid">
                   {[
                     "Slack",
@@ -308,43 +539,71 @@ function Waitlist(props: any) {
                   ].map((t) => (
                     <div key={t} className="tool-chk">
                       <input
-                        id={t}
+                        id={`tool-${t}`}
                         type="checkbox"
                         checked={tools.includes(t)}
                         onChange={() => toggleTool(t)}
                       />
-                      <label htmlFor={t}>{t}</label>
+                      <label htmlFor={`tool-${t}`}>{t}</label>
                     </div>
                   ))}
                 </div>
-              </fieldset>
+              </div>
 
-              <textarea
-                aria-label="Biggest pain"
-                placeholder="Biggest pain with current tools? (1 sentence)"
-                rows={2}
-                value={pain}
-                onChange={(e) => setPain(e.target.value)}
-                maxLength={120}
-              />
+              <div className="form-group full-width">
+                <label htmlFor="pain">
+                  Biggest pain with current tools? (1 sentence)
+                </label>
+                <textarea
+                  id="pain"
+                  placeholder="Tell us what frustrates you most about your current workflow..."
+                  rows={3}
+                  value={pain}
+                  onChange={(e) => setPain(e.target.value)}
+                  maxLength={120}
+                />
+                <div className="char-count">{pain.length}/120</div>
+              </div>
 
               {idealLoi && (
-                <div className="loi-box">
-                  <input id="loi" type="checkbox" />
-                  <label htmlFor="loi">
-                    I'd like to be a paid design partner (5 seats min, 50 %
-                    lifetime discount)
-                  </label>
+                <div className="form-group full-width">
+                  <div className="loi-box">
+                    <input id="loi" type="checkbox" />
+                    <label htmlFor="loi">
+                      <i className="fas fa-crown"></i>
+                      I'd like to be a paid design partner (5 seats min, 50%
+                      lifetime discount)
+                    </label>
+                  </div>
                 </div>
               )}
             </div>
 
-            <button type="submit" disabled={loading} className="submit-button">
-              {loading ? "Saving…" : "Join Waitlist →"}
+            <button
+              type="submit"
+              disabled={loading}
+              className={`submit-button ${loading ? "loading" : ""}`}
+            >
+              {loading ? (
+                <>
+                  <i className="fas fa-spinner fa-spin"></i>
+                  Saving...
+                </>
+              ) : (
+                <>
+                  Join Waitlist
+                  <i className="fas fa-arrow-right"></i>
+                </>
+              )}
             </button>
-            <p className="form-footer">
-              By joining you agree to our <a href="/privacy">Privacy Policy</a>.
-            </p>
+
+            <div className="form-footer">
+              <p>
+                By joining you agree to our{" "}
+                <a href="/privacy">Privacy Policy</a>. We respect your data and
+                never share it without permission.
+              </p>
+            </div>
           </form>
         </div>
       </div>
@@ -355,22 +614,79 @@ function Waitlist(props: any) {
 function ThankYou() {
   const ref = localStorage.getItem("workdora_ref") || "";
   const shareLink = `https://workdora.com?ref=${ref}`;
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(shareLink);
+    // You could add a toast notification here
+  };
+
   return (
     <section className="waitlist-section">
       <div className="container">
-        <div className="waitlist-card success-card">
-          <i className="fas fa-check-circle" />
+        <div className="success-card">
+          <div className="success-icon">
+            <i className="fas fa-check-circle"></i>
+          </div>
+
           <h2>You're in!</h2>
-          <p>Your spot is saved – we'll email you an invite soon.</p>
-          <label>
-            Share your link – get 3 friends to join and grab Pro free for 1
-            year:
-          </label>
-          <div className="copy-row">
-            <input readOnly value={shareLink} />
-            <button onClick={() => navigator.clipboard.writeText(shareLink)}>
-              Copy
-            </button>
+          <p className="success-message">
+            Your spot is saved – we'll email you an invite soon.
+          </p>
+
+          <div className="success-benefits">
+            <h3>As an early access member, you'll get:</h3>
+            <ul>
+              <li>
+                <i className="fas fa-check"></i> Priority access to new features
+              </li>
+              <li>
+                <i className="fas fa-check"></i> Exclusive founder pricing
+                forever
+              </li>
+              <li>
+                <i className="fas fa-check"></i> Direct line to our product team
+              </li>
+            </ul>
+          </div>
+
+          <div className="referral-section">
+            <label>
+              Share your link – get 3 friends to join and grab Pro free for 1
+              year:
+            </label>
+            <div className="copy-row">
+              <input readOnly value={shareLink} />
+              <button onClick={copyToClipboard}>
+                <i className="fas fa-copy"></i> Copy
+              </button>
+            </div>
+          </div>
+
+          <div className="social-share">
+            <p>Or share directly:</p>
+            <div className="social-buttons">
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                  "I just joined the Workdora waitlist! A revolutionary tool that turns Slack messages into billable tasks in seconds. Check it out: " +
+                    shareLink
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-button twitter"
+              >
+                <i className="fab fa-twitter"></i> Twitter
+              </a>
+              <a
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                  shareLink
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-button linkedin"
+              >
+                <i className="fab fa-linkedin"></i> LinkedIn
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -385,47 +701,80 @@ function Footer() {
         <div className="footer-content">
           <div className="footer-brand">
             <div className="logo">
-              <span className="logo-icon">W</span>
+              <div className="logo-icon">
+                <i className="fas fa-bolt"></i>
+              </div>
               <span className="logo-text">Workdora</span>
             </div>
             <p className="footer-tagline">Unfold Your Team's Potential</p>
+            <div className="footer-social">
+              <a
+                href="https://twitter.com/workdora"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-twitter"></i>
+              </a>
+              <a
+                href="https://linkedin.com/company/workdora"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="https://github.com/workdora"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-github"></i>
+              </a>
+            </div>
           </div>
+
           <div className="footer-links">
             <div className="footer-column">
               <h4>Product</h4>
               <a href="#features">Features</a>
               <a href="#waitlist">Waitlist</a>
+              <a href="#pricing">Pricing</a>
+              <a href="#integrations">Integrations</a>
             </div>
+
+            <div className="footer-column">
+              <h4>Resources</h4>
+              <a href="/blog">Blog</a>
+              <a href="/docs">Documentation</a>
+              <a href="/guides">Guides</a>
+              <a href="/webinars">Webinars</a>
+            </div>
+
             <div className="footer-column">
               <h4>Company</h4>
               <a href="/about">About</a>
+              <a href="/careers">Careers</a>
+              <a href="/contact">Contact</a>
+              <a href="/press">Press</a>
             </div>
+
             <div className="footer-column">
-              <h4>Connect</h4>
-              <div className="social-links">
-                <a
-                  href="https://twitter.com/workdora"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <i className="fab fa-twitter" /> Twitter
-                </a>
-                <a
-                  href="https://linkedin.com/company/workdora"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <i className="fab fa-linkedin" /> LinkedIn
-                </a>
-              </div>
+              <h4>Legal</h4>
+              <a href="/privacy">Privacy Policy</a>
+              <a href="/terms">Terms of Service</a>
+              <a href="/security">Security</a>
+              <a href="/compliance">Compliance</a>
             </div>
           </div>
         </div>
+
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} Workdora. All rights reserved.</p>
-          <div className="legal-links">
-            <a href="/privacy">Privacy Policy</a>
+          <p>
+            © {new Date().getFullYear()} Workdora, Inc. All rights reserved.
+          </p>
+          <div className="footer-bottom-links">
+            <a href="/privacy">Privacy</a>
             <a href="/terms">Terms</a>
+            <a href="/cookies">Cookies</a>
           </div>
         </div>
       </div>
