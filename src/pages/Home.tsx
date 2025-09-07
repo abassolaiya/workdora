@@ -74,20 +74,43 @@ export default function Home() {
       githubStars: GITHUB_STARS,
       score: 3 * (idealLoi ? 1 : 0) + 2 * (org ? 1 : 0) + (pain ? 1 : 0),
     };
+
     try {
-      const res = await fetch("/api/waitlist", {
+      // Use a direct URL or create an environment variable setup
+      const API_BASE_URL =
+        import.meta.env.VITE_API_URL || "https://workdorabackend.onrender.com";
+      console.log("Submitting to:", `${API_BASE_URL}/api/waitlist`);
+
+      const res = await fetch(`${API_BASE_URL}/api/waitlist`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error("network");
-      setSubmitted(true);
-      localStorage.setItem(
-        "workdora_ref",
-        email.split("@")[0] + "_" + Math.random().toString(36).slice(2, 8)
-      );
-    } catch {
-      alert("Something went wrong – please try again.");
+
+      // Check if the response is OK before trying to parse JSON
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`Server error: ${res.status} - ${errorText}`);
+      }
+
+      const responseData = await res.json();
+      console.log("Response:", responseData);
+
+      if (responseData.success) {
+        setSubmitted(true);
+        localStorage.setItem(
+          "workdora_ref",
+          responseData.data.referralCode ||
+            email.split("@")[0] + "_" + Math.random().toString(36).slice(2, 8)
+        );
+      } else {
+        alert(
+          responseData.message || "Something went wrong with your submission."
+        );
+      }
+    } catch (error: any) {
+      console.error("Submission error:", error);
+      alert(error.message || "Something went wrong – please try again.");
     } finally {
       setLoading(false);
     }
@@ -613,7 +636,7 @@ function Waitlist(props: any) {
 
 function ThankYou() {
   const ref = localStorage.getItem("workdora_ref") || "";
-  const shareLink = `https://workdora.com?ref=${ref}`;
+  const shareLink = `https://workdora.onrender.com/?ref=${ref}`;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(shareLink);
