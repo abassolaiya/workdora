@@ -45,6 +45,33 @@ export default function Home() {
     }
   }, []);
 
+  // Add this near your other useEffect hooks
+  useEffect(() => {
+    // Warm up the server when the component mounts
+    const warmUpServer = async () => {
+      try {
+        const API_BASE_URL =
+          import.meta.env.VITE_API_URL ||
+          "https://workdorabackend.onrender.com";
+        console.log("Warming up server...");
+
+        // Make a simple HEAD request to wake up the server
+        await fetch(`${API_BASE_URL}/api/health`, {
+          method: "HEAD",
+          // Add a timeout to prevent hanging
+          signal: AbortSignal.timeout(5000),
+        }).catch(() => {
+          // It's okay if this fails - we're just trying to wake up the server
+          console.log("Server warm-up attempt completed");
+        });
+      } catch (error) {
+        console.log("Server warm-up attempt completed (may have timed out)");
+      }
+    };
+
+    warmUpServer();
+  }, []);
+
   useEffect(() => {
     setIdealLoi(TOOLS_FOR_LOI.filter((t) => tools.includes(t)).length >= 2);
   }, [tools]);
@@ -76,16 +103,25 @@ export default function Home() {
     };
 
     try {
-      // Use a direct URL or create an environment variable setup
       const API_BASE_URL =
         import.meta.env.VITE_API_URL || "https://workdorabackend.onrender.com";
-      console.log("Submitting to:", `${API_BASE_URL}/api/waitlist`);
 
-      const res = await fetch(`${API_BASE_URL}/api/waitlist`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      // Show a loading message that indicates server might be waking up
+      const loadingInterval = setInterval(() => {
+        console.log("Server might be waking up, please wait...");
+      }, 2000);
+
+      const res = await fetchWithRetry(
+        `${API_BASE_URL}/api/waitlist`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        },
+        3
+      ); // Retry up to 3 times
+
+      clearInterval(loadingInterval);
 
       // Check if the response is OK before trying to parse JSON
       if (!res.ok) {
@@ -110,11 +146,50 @@ export default function Home() {
       }
     } catch (error: any) {
       console.error("Submission error:", error);
-      alert(error.message || "Something went wrong – please try again.");
+
+      // More specific error messages
+      if (error.name === "AbortError") {
+        alert(
+          "The request took too long. The server might be waking up. Please try again in a few moments."
+        );
+      } else if (error.message.includes("Failed to fetch")) {
+        alert(
+          "Cannot connect to the server. Please check your internet connection and try again."
+        );
+      } else {
+        alert(error.message || "Something went wrong – please try again.");
+      }
     } finally {
       setLoading(false);
     }
   };
+
+  // Add this helper function for retry logic
+  async function fetchWithRetry(
+    url: string,
+    options: RequestInit,
+    retries: number
+  ): Promise<Response> {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
+      const response = await fetch(url, {
+        ...options,
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+      return response;
+    } catch (error: any) {
+      if (retries > 0 && error.name === "AbortError") {
+        console.log(`Retrying request... ${retries} attempts left`);
+        await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait 2 seconds before retrying
+        return fetchWithRetry(url, options, retries - 1);
+      }
+      throw error;
+    }
+  }
 
   const toggleTool = (t: string) =>
     setTools((p) => (p.includes(t) ? p.filter((x) => x !== t) : [...p, t]));
