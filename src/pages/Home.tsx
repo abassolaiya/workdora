@@ -333,32 +333,32 @@ function Features() {
     {
       icon: "fa-layer-group",
       title: "Unified Platform",
-      desc: "Streamline tasks, docs, collaboration in one workspace.",
+      desc: "Built from scratch to unify tasks, docs, and team workflows in one seamless space.",
     },
     {
       icon: "fa-brain",
       title: "Smart Automation",
-      desc: "AI predicts tasks & bottlenecks before they happen.",
+      desc: "Our native AI anticipates tasks, flags blockers, and keeps your team flowing.",
     },
     {
       icon: "fa-users",
-      title: "Slack-Native",
-      desc: "Turn any message into a scoped, billable task with /task.",
+      title: "Native Tasking",
+      desc: "Turn any message into a scoped, billable task — no integrations required.",
     },
     {
       icon: "fa-bolt",
       title: "Offline-First",
-      desc: "Desktop wrapper keeps working without Wi-Fi.",
+      desc: "WorkDora’s desktop app runs natively offline, so your workflow never stalls.",
     },
     {
       icon: "fa-lock",
       title: "Advanced Security",
-      desc: "AES-256 at rest, TLS 1.3 in transit, SOC-2 soon.",
+      desc: "End-to-end encryption with AES-256, TLS 1.3, and SOC-2 compliance underway.",
     },
     {
       icon: "fa-puzzle-piece",
-      title: "1-Click Invoicing",
-      desc: "Close task → export to Harvest / QuickBooks instantly.",
+      title: "Built-In Invoicing",
+      desc: "Close a task and instantly generate invoices — no third-party tools needed.",
     },
   ];
 
@@ -366,9 +366,10 @@ function Features() {
     <section id="features" className="features-section">
       <div className="container">
         <div className="section-header">
-          <h2 className="section-title">Why Workdora?</h2>
+          <h2 className="section-title">Why WorkDora?</h2>
           <p className="section-subtitle">
-            Designed for agencies that value efficiency and seamless workflows
+            Built from the ground up for agencies that demand speed, clarity,
+            and control — all in one place.
           </p>
         </div>
 
